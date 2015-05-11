@@ -1,0 +1,31 @@
+{
+  "name": "basketball-reference",
+  "version": "1.0.0",
+  "description": "Scraper for basketball-reference.com",
+  "main": "src/scraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codenameyau/basketball-reference.git"
+  },
+  "keywords": [
+    "web",
+    "scraper",
+    "basketball",
+    "reference",
+    "nba",
+    "json"
+  ],
+  "author": "Jorge Yau <jyau01@citymail.cuny.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codenameyau/basketball-reference/issues"
+  },
+  "homepage": "https://github.com/codenameyau/basketball-reference",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "request": "^2.55.0"
+  }
+}
