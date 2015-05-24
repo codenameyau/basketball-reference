@@ -26,6 +26,19 @@ var BASE_URL = 'http://www.basketball-reference.com/';
 /***************************************************************
 * Internal Functions
 ***************************************************************/
+var getURL = function(menu, resource) {
+  return util.format('%s/%s/%s.html',
+    BASE_URL, menu, resource);
+};
+
+var convertToNumber = function(value) {
+  if (isNaN(value)) {
+    return 0;
+  } else {
+    return parseFloat(value);
+  }
+};
+
 var parseConferenceName = function($conference) {
   return $conference.find('.sort_default_asc').html();
 };
@@ -38,14 +51,6 @@ var parseSeed = function(text) {
   return parseInt(
     text.match(/\(\d+\)/gm)[0]
         .match(/\d+/gm)[0], 10);
-};
-
-var parseNumber = function(value) {
-  if (isNaN(value)) {
-    return 0;
-  } else {
-    return parseFloat(value);
-  }
 };
 
 var parseStanding = function($row) {
@@ -77,7 +82,7 @@ var parseStanding = function($row) {
   // Seed requires its own parser.
   standing.seed = parseSeed(rawData[0]);
   for (var i=1, len=rawData.length; i<len; i++) {
-    standing[keys[i]] = parseNumber(rawData[i]);
+    standing[keys[i]] = convertToNumber(rawData[i]);
   }
   return standing;
 };
@@ -116,17 +121,16 @@ var parseLeagueStandings = function(body) {
 
 
 /***************************************************************
-* Export Modules
+* Module Exports
 ***************************************************************/
 exports.getLeagueStandings = function(year, cb) {
-  var url = util.format('%s/%s/NBA_%d.html', BASE_URL, 'leagues', year);
+  var url = getURL('leagues', 'NBA_' + year + '_standings');
   request.get(url, function(error, res, body) {
     if (!error && res.statusCode === 200) {
-      // Create cheerio here if reusing body.
-      cb(JSON.stringify({
-        year: year,
-        standings: parseLeagueStandings(body),
-      }, null, ' '));
+      cb({
+          year: year,
+          standings: parseLeagueStandings(body),
+        });
     }
   });
 };

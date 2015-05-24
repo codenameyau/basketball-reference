@@ -1,10 +1,10 @@
 {
   "name": "basketball-reference",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scraper for basketball-reference.com",
   "main": "src/scraper.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
   "dependencies": {
     "cheerio": "^0.19.0",
     "request": "^2.55.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0"
   }
 }
